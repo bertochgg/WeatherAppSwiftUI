@@ -9,13 +9,20 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ZStack {
+            BackgroundDashboardView()
+            VStack(spacing: 12) {
+                HeaderDashboardView()
+                TemperatureDashboardView()
+                WeatherConditionDashboardView()
+                HouseDashboardView()
+                Spacer()
+            }
+            .padding(.top, 70)
+            WeatherSummaryDataView {
+                WeatherDataSummaryDashboardView()
+            }
         }
-        .padding()
     }
 }
 
