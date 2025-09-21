@@ -11,7 +11,10 @@ struct WeatherByHourCapsuleView: View {
     var body: some View {
         VStack(spacing: 12) {
             Text("12 AM")
-            Image(systemName: "cloud.fill")
+            Image("sun-cloud-mid-rain")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 32, height: 32)
             Text("30%")
             Text("19°")
         }
