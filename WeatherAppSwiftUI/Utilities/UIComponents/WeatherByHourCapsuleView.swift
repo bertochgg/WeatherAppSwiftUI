@@ -8,14 +8,18 @@
 import SwiftUI
 
 struct WeatherByHourCapsuleView: View {
+    let capsuleViewModel: WeatherByHourCapsuleViewModel
     var body: some View {
         VStack(spacing: 12) {
-            Text("12 AM")
-            Image("sun-cloud-mid-rain")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 32, height: 32)
-            Text("30%")
+            Text("\(capsuleViewModel.hour)")
+            VStack(spacing: 0) {
+                Image("sun-cloud-mid-rain")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 32, height: 32)
+                Text("30%")
+            }
+            
             Text("19°")
         }
         .padding(.vertical, 18)
@@ -44,7 +48,7 @@ struct WeatherByHourCapsuleView: View {
     ZStack {
         LinearGradient(colors: [Color.purple, Color.blue], startPoint: .topLeading, endPoint: .bottomTrailing)
             .ignoresSafeArea()
-        WeatherByHourCapsuleView()
+        WeatherByHourCapsuleView(capsuleViewModel: WeatherByHourCapsuleViewModel(weatherByHour: Current(dt: 56, sunrise: 56, sunset: 56, temp: 56.9, feelsLike: 34.9, pressure: 2, humidity: 2, dewPoint: 2.9, uvi: 23.0, clouds: 1, visibility: 2, windSpeed: 12.9, windDeg: 1, windGust: 8.9, weather: [Weather](), rain: nil, pop: nil)))
             
     }
 }

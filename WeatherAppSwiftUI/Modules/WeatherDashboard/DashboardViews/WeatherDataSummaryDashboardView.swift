@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct WeatherDataSummaryDashboardView: View {
+    @ObservedObject var weatherViewModel: WeatherByHourViewModel
     var body: some View {
         ScrollView(.vertical) {
             VStack(spacing: 20) {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 12) {
-                        ForEach(0..<10) { _ in
-                            WeatherByHourCapsuleView()
+                        ForEach(weatherViewModel.capsules) { capsuleViewModel in
+                            WeatherByHourCapsuleView(capsuleViewModel: capsuleViewModel)
                         }
                     }
                     .padding(.horizontal, 20)
@@ -27,5 +28,5 @@ struct WeatherDataSummaryDashboardView: View {
 }
 
 #Preview {
-    WeatherDataSummaryDashboardView()
+    WeatherDataSummaryDashboardView(weatherViewModel: WeatherByHourViewModel())
 }
