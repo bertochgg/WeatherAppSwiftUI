@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct WeatherDashboardView: View {
     var body: some View {
         ZStack {
             BackgroundDashboardView()
@@ -27,5 +27,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    WeatherDashboardView()
 }
