@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct WeatherDashboardView: View {
+    @StateObject private var weatherViewModel = WeatherByHourViewModel()
     var body: some View {
         ZStack {
             BackgroundDashboardView()
@@ -19,10 +20,18 @@ struct WeatherDashboardView: View {
                 Spacer()
             }
             .padding(.top, 70)
+            
             WeatherSummaryDataView {
-                WeatherDataSummaryDashboardView()
+                WeatherDataSummaryDashboardView(weatherViewModel: weatherViewModel)
+            }
+            if weatherViewModel.isLoading {
+                LoadingOverlayView()
             }
         }
+        .task {
+            await weatherViewModel.fetchWeather(for: "Tlaxcala")
+        }
+        .animation(.bouncy, value: weatherViewModel.isLoading) // animate transition
     }
 }
 
