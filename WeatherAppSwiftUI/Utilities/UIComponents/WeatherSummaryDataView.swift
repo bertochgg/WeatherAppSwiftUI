@@ -40,7 +40,10 @@ struct WeatherSummaryDataView<Content: View>: View {
                 Divider()
                     .overlay(
                         LinearGradient(
-                            colors: [Color.white.opacity(0.7), Color.white.opacity(0.2)],
+                            colors: [
+                                Color(red: 1/255, green: 39/255, blue: 139/255).opacity(0.7),
+                                Color(red: 46/255, green: 51/255, blue: 90/255).opacity(0.4)
+                            ],
                             startPoint: .leading,
                             endPoint: .trailing
                         )
@@ -52,12 +55,24 @@ struct WeatherSummaryDataView<Content: View>: View {
             }
             .frame(maxWidth: .infinity)
             .frame(maxHeight: .infinity, alignment: .top)
-            .background(.ultraThinMaterial)
+            .background(
+                LinearGradient(
+                    colors: [
+                        Color(red: 69/255, green: 39/255, blue: 139/255).opacity(0.65),
+                        Color(red: 46/255, green: 51/255, blue: 90/255).opacity(2)
+                    ],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 48))
             .cornerRadius(48)
             .border(LinearGradient(
-                colors: [Color.white, Color.white],
-                startPoint: .topLeading,
-                endPoint: .topTrailing
+                colors: [
+                    Color(red: 46/255, green: 51/255, blue: 90/255),
+                    Color(red: 69/255, green: 39/255, blue: 139/255)],
+                startPoint: .top,
+                endPoint: .top
             ), width: 1).cornerRadius(48)
                 .offset(y: (position ?? collapsed) + dragOffset.height)
                 .gesture(

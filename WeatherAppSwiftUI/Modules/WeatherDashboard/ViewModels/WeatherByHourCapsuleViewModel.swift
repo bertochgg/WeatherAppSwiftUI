@@ -14,11 +14,32 @@ final class WeatherByHourCapsuleViewModel: Identifiable {
         self.weatherByHour = weatherByHour
     }
     
-    var hour: String {
-        weatherByHour.dt.description
+    var hour: Int {
+        weatherByHour.dt
     }
     
-    var temperature: String {
-        String(format: "%.1f", weatherByHour.temp)
+    var temperature: Double {
+        weatherByHour.temp
     }
+    
+    var weatherIcon: String {
+        let weatherState = WeatherState.classifyWeatherState(id: weatherByHour.weather.first?.id ?? 0, isDay: isDay)
+        let icon = WeatherState.getWeatherStateIconName(weatherState: weatherState)
+        return icon
+    }
+    
+    var precipitationProbability: String {
+        if let chance = weatherByHour.pop {
+            return "\(Int(chance * 100))%"
+        }
+        return "null%"
+    }
+    
+    private var isDay: Bool {
+        guard let isDay = weatherByHour.weather.first?.icon.contains("d") else {
+            return false
+        }
+        return isDay
+    }
+
 }
