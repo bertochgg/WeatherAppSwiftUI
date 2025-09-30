@@ -12,12 +12,12 @@ enum MyTab: Hashable {
 
 struct LiquidGlassTabAppView: View {
     @State private var selection: MyTab = .home
-    @State private var searchString: String = ""
-
+    @StateObject private var weatherViewModel = WeatherByHourViewModel()
+    
     var body: some View {
         TabView(selection: $selection) {
             Tab("Home", systemImage: "house.fill", value: .home) {
-                WeatherDashboardView()
+                WeatherDashboardView(weatherViewModel: weatherViewModel)
             }
             Tab("Locations", systemImage: "bookmark.fill", value: .savedLocations) {
                 SearchView()
@@ -26,14 +26,9 @@ struct LiquidGlassTabAppView: View {
                 SettingsView()
             }
             Tab(value: .search, role: .search) {
-                NavigationStack {
-                    List {
-                        Text("Search city's weather")
-                    }
-                    .navigationTitle("Search")
-                    .searchable(text: $searchString)
-                }
+                SearchWeatherByCityView(selection: $selection, weatherByHourViewModel: weatherViewModel)
             }
+
         }
     }
 }
