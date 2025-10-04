@@ -16,7 +16,7 @@ struct WeatherSummaryDataView<Content: View>: View {
     var body: some View {
         GeometryReader { proxy in
             let screenHeight = proxy.size.height
-            let collapsed = screenHeight * 0.60
+            let collapsed = screenHeight * 0.58
             let expanded: CGFloat = 100
             VStack {
                 Capsule()

@@ -11,7 +11,7 @@ struct WeatherByHourCapsuleView: View {
     let capsuleViewModel: WeatherByHourCapsuleViewModel
     var body: some View {
         VStack(spacing: 12) {
-            Text(FormatterHelper.shared.convertUnixToLocalHour(capsuleViewModel.hour))
+            Text(FormatterHelper.shared.convertUnixToLocalHour(capsuleViewModel.unixTime))
                 .font(.system(size: 15, weight: .semibold))
                 .foregroundStyle(Color.white)
             VStack(spacing: 0) {
@@ -19,9 +19,14 @@ struct WeatherByHourCapsuleView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 32, height: 32)
-                Text(capsuleViewModel.precipitationProbability)
-                    .font(.system(size: 13, weight: .semibold))
-                    .foregroundStyle(Color.Resolved(red: 64/255, green: 203/255, blue: 216/255))
+                HStack(spacing: 4) {
+                    Image(systemName: "drop.fill")
+                        .foregroundStyle(Color(red: 64/255, green: 203/255, blue: 216/255))
+                        .font(.system(size: 13, weight: .semibold))
+                    Text(capsuleViewModel.precipitationProbability)
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(Color(red: 64/255, green: 203/255, blue: 216/255))
+                }
             }
             Text(capsuleViewModel.temperature.toCelsius)
                 .font(.system(size: 20, weight: .regular))
@@ -60,7 +65,7 @@ struct WeatherByHourCapsuleView: View {
     ZStack {
         LinearGradient(colors: [Color.purple, Color.blue], startPoint: .topLeading, endPoint: .bottomTrailing)
             .ignoresSafeArea()
-        WeatherByHourCapsuleView(capsuleViewModel: WeatherByHourCapsuleViewModel(weatherByHour: Current(dt: 56, sunrise: 56, sunset: 56, temp: 286.9, feelsLike: 34.9, pressure: 2, humidity: 2, dewPoint: 2.9, uvi: 23.0, clouds: 1, visibility: 2, windSpeed: 12.9, windDeg: 1, windGust: 8.9, weather: [Weather](), rain: nil, pop: nil)))
+        WeatherByHourCapsuleView(capsuleViewModel: WeatherByHourCapsuleViewModel(weatherByHour: Current(dt: 56, sunrise: 56, sunset: 56, temp: 286.9, feelsLike: 34.9, pressure: 2, humidity: 2, dewPoint: 2.9, uvi: 23.0, clouds: 1, visibility: 2, windSpeed: 12.9, windDeg: 1, windGust: 8.9, weather: [Weather](), rain: nil, pop: 0.8)))
             
     }
 }

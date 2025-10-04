@@ -14,7 +14,7 @@ final class WeatherByHourCapsuleViewModel: Identifiable {
         self.weatherByHour = weatherByHour
     }
     
-    var hour: Int {
+    var unixTime: Int {
         weatherByHour.dt
     }
     

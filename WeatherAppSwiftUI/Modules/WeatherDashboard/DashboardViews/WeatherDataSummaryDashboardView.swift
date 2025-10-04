@@ -11,7 +11,11 @@ struct WeatherDataSummaryDashboardView: View {
     @ObservedObject var weatherViewModel: WeatherByHourViewModel
     var body: some View {
         ScrollView(.vertical) {
-            VStack(spacing: 20) {
+            VStack(alignment: .leading,spacing: 8) {
+                Text(DateFormatter.localizedString(from: Date(), dateStyle: .full, timeStyle: .none))
+                    .foregroundStyle(Color.white)
+                    .font(.system(size: 20, weight: .semibold))
+                    .padding(.leading, 16)
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 12) {
                         ForEach(weatherViewModel.capsules) { capsuleViewModel in
@@ -21,12 +25,16 @@ struct WeatherDataSummaryDashboardView: View {
                     .padding(.horizontal, 20)
                 }
             }
-            .padding(.top, 19)
+            .padding(.top, 0)
             .padding(.bottom, 100)
         }
     }
 }
 
 #Preview {
-    WeatherDataSummaryDashboardView(weatherViewModel: WeatherByHourViewModel())
+    ZStack {
+        LinearGradient(colors: [Color.purple, Color.blue], startPoint: .topLeading, endPoint: .bottomTrailing)
+            .ignoresSafeArea()
+        WeatherDataSummaryDashboardView(weatherViewModel: WeatherByHourViewModel())
+    }
 }
