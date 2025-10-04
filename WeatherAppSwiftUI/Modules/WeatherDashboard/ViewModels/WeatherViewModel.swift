@@ -35,7 +35,7 @@ final class WeatherByHourViewModel: ObservableObject {
             self.weatherDescription = weather.current.weather.first?.description ?? ""
             self.minTemperature = weather.daily.first?.temp.min ?? 0.0
             self.maxTemperature = weather.daily.first?.temp.max ?? 0.0
-            self.capsules = weather.hourly.map { WeatherByHourCapsuleViewModel(weatherByHour: $0)}
+            self.capsules = getTodayWeatherCapsules(from: weather.hourly)
             if !capsules.isEmpty {
                 isLoading = false
             }
@@ -44,6 +44,18 @@ final class WeatherByHourViewModel: ObservableObject {
             
         }
     }
+    
+    private func getTodayWeatherCapsules(from weather: [Current]) -> [WeatherByHourCapsuleViewModel] {
+        let calendar = Calendar.current
+        let today = Date()
+        return weather
+            .filter {
+                let capsuleDate = Date(timeIntervalSince1970: TimeInterval($0.dt))
+                return calendar.isDate(capsuleDate, inSameDayAs: today)
+            }
+            .map { WeatherByHourCapsuleViewModel(weatherByHour: $0) }
+    }
+
 }
 
 

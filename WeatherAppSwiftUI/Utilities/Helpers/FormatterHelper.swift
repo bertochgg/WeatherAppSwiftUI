@@ -19,6 +19,11 @@ final class FormatterHelper {
         formatter.dateFormat = "ha"
         return splitHourWithSpace(formatter.string(from: date))
     }
+    
+    func convertUnixToDate(_ unix: Int) -> Date {
+        let date = Date(timeIntervalSince1970: TimeInterval(unix))
+        return date
+    }
 
     private func splitHourWithSpace(_ string: String) -> String {
         var result = ""
