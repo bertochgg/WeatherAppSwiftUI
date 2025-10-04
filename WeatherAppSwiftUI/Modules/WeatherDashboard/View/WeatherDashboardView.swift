@@ -9,13 +9,16 @@ import SwiftUI
 
 struct WeatherDashboardView: View {
     @ObservedObject var weatherViewModel: WeatherByHourViewModel
+    @Binding var isNewCitySearched: Bool
     var body: some View {
         ZStack {
             BackgroundDashboardView()
             VStack(spacing: 12) {
-                HeaderDashboardView()
-                TemperatureDashboardView()
-                WeatherConditionDashboardView()
+                HeaderDashboardView(currentCity: weatherViewModel.currentCity)
+                TemperatureDashboardView(temperature: weatherViewModel.currentTemperature.toCelsius)
+                WeatherConditionDashboardView(weatherDescription: weatherViewModel.weatherDescription,
+                                              minTemperature: weatherViewModel.minTemperature.toCelsius,
+                                              maxTemperature: weatherViewModel.maxTemperature.toCelsius)
                 HouseDashboardView()
                 Spacer()
             }
@@ -29,6 +32,7 @@ struct WeatherDashboardView: View {
             }
         }
         .task {
+            guard weatherViewModel.capsules.isEmpty || isNewCitySearched else { return }
             if let city = UserDefaults.standard.string(forKey: "currentCity") {
             await weatherViewModel.fetchWeather(for: city)
             } else {
@@ -40,5 +44,5 @@ struct WeatherDashboardView: View {
 }
 
 #Preview {
-    WeatherDashboardView(weatherViewModel: WeatherByHourViewModel())
+    WeatherDashboardView(weatherViewModel: WeatherByHourViewModel(), isNewCitySearched: .constant(true))
 }

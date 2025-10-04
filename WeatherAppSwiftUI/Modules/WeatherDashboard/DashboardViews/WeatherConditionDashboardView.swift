@@ -8,16 +8,19 @@
 import SwiftUI
 
 struct WeatherConditionDashboardView: View {
+    let weatherDescription: String
+    let minTemperature: String
+    let maxTemperature: String
     var body: some View {
         VStack {
-            Text("Mostly Clear")
+            Text(weatherDescription.capitalized)
                 .font(.system(size: 20, weight: .semibold))
                 .foregroundStyle(Color(red: 235/255, green: 235/255, blue: 245/255))
                 .opacity(0.6)
 
             HStack {
-                Text("Highest: 24°")
-                Text("Lowest: 18°")
+                Text("Highest: \(maxTemperature)")
+                Text("Lowest: \(minTemperature)")
             }
             .foregroundStyle(.white)
             .font(.system(size: 20, weight: .semibold))
@@ -27,5 +30,5 @@ struct WeatherConditionDashboardView: View {
 
 
 #Preview {
-    WeatherConditionDashboardView()
+    WeatherConditionDashboardView(weatherDescription: "mostly clear", minTemperature: "19°", maxTemperature: "22°")
 }
