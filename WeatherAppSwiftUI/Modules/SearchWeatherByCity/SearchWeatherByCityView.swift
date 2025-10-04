@@ -8,6 +8,7 @@ import SwiftUI
 
 struct SearchWeatherByCityView: View {
     @Binding var selection: MyTab
+    @Binding var isNewCitySearched: Bool
     @ObservedObject var weatherByHourViewModel: WeatherByHourViewModel
     @State private var searchString = ""
     @State private var isSearchPresented = false
@@ -45,9 +46,13 @@ struct SearchWeatherByCityView: View {
                 storeCity(searchString)
                 resetView()
                 selection = .home
+                isNewCitySearched = true
             }
             .onAppear {
                 resetView()
+            }
+            .onDisappear {
+                isNewCitySearched = false
             }
         }
         .foregroundStyle(.white)
@@ -64,5 +69,5 @@ struct SearchWeatherByCityView: View {
 }
 
 #Preview {
-    SearchWeatherByCityView(selection: .constant(.home), weatherByHourViewModel: WeatherByHourViewModel())
+    SearchWeatherByCityView(selection: .constant(.home), isNewCitySearched: .constant(true), weatherByHourViewModel: WeatherByHourViewModel())
 }

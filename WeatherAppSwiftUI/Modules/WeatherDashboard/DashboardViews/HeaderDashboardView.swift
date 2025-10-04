@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct HeaderDashboardView: View {
+    let currentCity: String
     var body: some View {
-        Text("Montreal")
+        Text(currentCity.capitalized)
             .font(.system(size: 34, weight: .regular))
             .foregroundStyle(.white)
     }
 }
 
 #Preview {
-    HeaderDashboardView()
+    HeaderDashboardView(currentCity: "some city")
         .background(Color.blue)
 }

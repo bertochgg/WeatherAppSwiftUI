@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct TemperatureDashboardView: View {
+    let temperature: String
     var body: some View {
-        Text("19°")
+        Text(temperature)
             .foregroundStyle(.white)
             .font(.system(size: 96, weight: .thin))
     }
 }
 
 #Preview {
-    TemperatureDashboardView()
+    TemperatureDashboardView(temperature: "19°")
         .background(Color.black)
 }
