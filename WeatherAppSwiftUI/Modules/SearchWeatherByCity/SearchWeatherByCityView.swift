@@ -7,11 +7,12 @@
 import SwiftUI
 
 struct SearchWeatherByCityView: View {
+    @State private var searchString = ""
+    @State private var isSearchPresented = false
     @Binding var selection: MyTab
     @Binding var isNewCitySearched: Bool
     @ObservedObject var weatherByHourViewModel: WeatherByHourViewModel
-    @State private var searchString = ""
-    @State private var isSearchPresented = false
+    @Environment(\.modelContext) private var context
 
     var body: some View {
         NavigationStack {
@@ -44,6 +45,7 @@ struct SearchWeatherByCityView: View {
             .onSubmit(of: .search) {
                 guard !searchString.isEmpty else { return }
                 storeCity(searchString)
+                storeCityInSwiftData(searchString)
                 resetView()
                 selection = .home
                 isNewCitySearched = true
@@ -60,6 +62,16 @@ struct SearchWeatherByCityView: View {
 
     private func storeCity(_ city: String) {
         UserDefaults.standard.set(city, forKey: "currentCity")
+    }
+    
+    private func storeCityInSwiftData(_ city: String) {
+        let newCity = SavedCity(name: city)
+        context.insert(newCity)
+        do {
+            try context.save()
+        } catch {
+            print("Error saving city: \(error)")
+        }
     }
     
     private func resetView() {

@@ -27,7 +27,7 @@ struct WeatherDashboardView: View {
             WeatherSummaryDataView {
                 WeatherDataSummaryDashboardView(weatherViewModel: weatherViewModel)
             }
-            if weatherViewModel.isLoading { // Dashboard is visible before loader
+            if weatherViewModel.isLoading { // Check -> Dashboard is visible before loader
                 LoadingOverlayView()
             }
         }

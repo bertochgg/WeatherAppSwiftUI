@@ -21,7 +21,7 @@ struct LiquidGlassTabAppView: View {
                 WeatherDashboardView(weatherViewModel: weatherViewModel, isNewCitySearched: $isNewCitySearched)
             }
             Tab("Locations", systemImage: "bookmark.fill", value: .savedLocations) {
-                SearchView()
+                LocationsSaved(selection: $selection, isNewCitySearched: $isNewCitySearched)
             }
             Tab("Settings", systemImage: "gearshape.fill", value: .settings) {
                 SettingsView()

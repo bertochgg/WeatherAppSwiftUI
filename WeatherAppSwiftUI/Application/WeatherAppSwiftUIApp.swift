@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct WeatherAppSwiftUIApp: App {
@@ -13,5 +14,6 @@ struct WeatherAppSwiftUIApp: App {
         WindowGroup {
             LiquidGlassTabAppView()
         }
+        .modelContainer(for: [SavedCity.self])
     }
 }
